@@ -14,15 +14,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('guests.home');
-});
 
 Auth::routes();
 
 //rotte per area admin
-//Route::get('/home', 'HomeController@index')->name('home');
-
 Route::middleware('auth')
     ->namespace('Admin')
     ->name('admin.')
@@ -31,3 +26,9 @@ Route::middleware('auth')
         //admin homepage
         Route::get('/', 'HomeController@index')->name('home');
     });
+
+
+//home front office sempre alla fine
+Route::get('{any?}', function () {
+    return view('guests.home');
+})->where('any', '.*');
